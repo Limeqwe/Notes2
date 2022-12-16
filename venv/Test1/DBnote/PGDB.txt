@@ -1,0 +1,26 @@
+数值类型 
+货币类型（money）存储带有固定小数精度的货币金额
+字符类型
+日期/时间类型
+bolean类型
+枚举类型(create type mood as enum('sad','ok','happy'));
+几何类型
+网络地址类型(cidr(IPv4,IPV6网络),inet(IPv4,IPv6主机和网络),macaddr（mac地址))
+位串类型
+文本搜索类型（tsvector,tsquery）
+\d 查看表格 \d tablename 
+模式 一个表的集合(可以包含视图、索引、数据类型、函数和操作符) 
+类似于操作系统层的目录，但是模式不能嵌套
+
+update = update company set address='XXX' ,salary = xxxxxx;
+
+delete from company
+
+从第三位开始提取3个记录:
+select * from company limit 3 offset 2(索引);
+
+exclusion约束 确保如果使用指定的运算符在指定列或表达式上比较任意两行
+至少其中一个运算符比较将返回false或null
+
+union用于合并两个或多个selext语句的结果集
+union内部必须拥有相同数量的列 列必须拥有相似的数据类型
