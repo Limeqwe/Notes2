@@ -1,0 +1,91 @@
+set类型:  单key多value 一个key对应多个value
+         且不能重复
+  a.将一个或者多个元素添加到指定的集合中: sadd key value [value value value]
+    *如果元素已经存在，则忽略
+    sadd set01 a b c a 结果: a b c （里面是无序的）
+  b.获取指定集合中所有的元素: smembers key
+    smembers set01
+  c.判断指定元素在指定集合中是否存在: sismember key member
+  d.获取指定集合的长度: scard key
+  e.移出指定集合中一个或者多个元素: srem key member [member member]
+    不存在的元素会被忽略
+    返回成功成功溢出的个数
+    srem set01 b
+  f.随机获取指定集合中的一个元素或者多个元素: srandmember key [count]
+                                                            |->:count > 0: 随机获取多个元素之间不能重复
+                                                            |->:count < 0: 随机获取的多个元素之间可能重复
+    sadd set02 1 2 3 4 5 6
+    srandmember set02
+  g.从指定集合中随机移出一个或者多个元素L spop key [count]
+  h.将指定集合中的指定元素移动到另一个元素: smove source dest member
+    smove set01 set02 a
+  i.获取一个集合中有、但是其它集合中都没有的元素组成的新集合:sdiff key key [key key key ....]
+    sdiff set01 set02 set03
+  j.获取所有指定集合中都有的元素组成的新集合
+    sinter set01 set02 set03
+  k.获取所有指定集合中所有元素组成的大集合: sunion key [key key ...]
+    sunion set01 set02 set03
+
+hash类型 单key:field-value
+              field-value
+              ...
+              studentzx:id-1001
+                        name-zhangsan
+                        age-20
+ a.将一个或者多个field-value对设置到哈希表中: hset key field1 value1 [field2 value2]
+   如果key field已经存在，把value会把以前的值覆盖掉
+    hset stu1001 id 1001
+    hset stu1001 name zhangsan age 20
+ b.获取指定哈希表中指定field的值: hget key field
+    hget stu1001 id
+    hget stu1001 name
+ c.批量将多个field-value对设置到哈希表中: hmset key filed1 value1 [field2 value2 ...]
+ d.批量获取指定哈希表中的field的值： hmget key field1 [field2 field3 ...]
+   hmget stu1001 id name age
+ e.获取指定哈希表中所有的field和value：hgetall key
+   hgetall stu1001
+ f.从指定哈希表中删除一个或者多个field: hdel key field [field2 field3 ....]
+   hdel stu1002 name age
+ g.获取指定哈希表中所有的filed个数: hlen key
+   hlen stu1001
+   hlen stu1002
+ h.判断指定哈希表中是否存在某一个field: hexists key field
+   hexists stu1001 name
+ i.获取指定哈希表中所有的field列表: hkeys key
+   hkeys stu101
+   hkeys stu102
+ j.获取指定哈希表中所有的value列表: hvals key
+   hvals stu101
+ k.对指定哈希表中指定field值进行加法运算: hincrby key field int
+   hincrby stu101 age 5
+ l.对指定哈希表中指定field值进行浮点数加法运算: hincrbyfloat key float
+  hset stu101 score 80.5
+ m.将一个field-value对设置到哈希表中，当key-field已经存在时，则放弃设置: 否则,设置field-value: hsetnx key field value
+ field value
+  hsetnx stu101 age 30
+zset类型数据的操作命令: 有序集合
+                     本质上是集合 元素不能重复:
+                     每一个元素都关联一个分数，redis会根据分数对元素进行自动排序:
+                     分数可以重复。
+                     既然有序集合中每一个元素都有顺序，那么也都有下标:
+                     有序集合中元素的排序规则又列表中元素的排序规则不一样。
+ a.将一个或者多个member及其score值加入有序集合:
+    zadd key score member [score member ....]
+    zadd zset01 20 z1 30 z2 50 z3 40 z4 根据分数的大小进行排序
+    zadd zset01 60 z2 如果存在分数被覆盖
+ b.获取指定有序集合中指定下标区间的元素: zrange key startIndex endIndex [withscores]
+    zrange zset01 0 -1
+    zrange zset01 0 -1 withscores
+ c.获取指定有序集合中指定分数区间的元素: zrangebyscore key min max withscores
+ d.删除指定有序集合中一个或者多个元素: zrem key member [member member ...]
+    zrem zset01 z3 a4
+ e.获取指定有序集合中所有元素的个数:zcard zset01
+    zcard zset01
+ f.获取指定有序集合中指定元素的排名(排名从0开始): zrank key member
+    zrank zset01 z4
+ g.获取指定有序集合中分数在指定区间内的元素的个数: zcount key min max
+    zcount zset01 z4
+ h.获取指定有序集合中指定元素的分数: zscore key member
+    zscore zset01 z4
+ i.获取指定有序集合中指定元素的排名(按照分数从大到小的排名):zrevrank key member
+    zrevrank zset01 z4
