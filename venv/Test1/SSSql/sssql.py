@@ -1,16 +1,16 @@
-import pymysql
+# import pymysql
 #连接数据库
-conn = pymysql.connect(
-    host="localhost",
-    user="root",
-    passwd="123456",
-    db='lyc',
-    charset='utf8',
-    #autocomint=True,
-)
+# conn = pymysql.connect(
+#     host="localhost",
+#     user="root",
+#     passwd="123456",
+#     db='lyc',
+#     charset='utf8',
+#     #autocomint=True,
+# )
 #创建游标对象,用来给数据库发送sql语句
 #c创建游标对象
-cur = conn.cursor()
+# cur = conn.cursor()
 #对数据库增删改查
 
 #创建数据表
@@ -45,3 +45,8 @@ cur = conn.cursor()
 # cur.close()
 #关闭连接
 # conn.close()
+#
+# info = []
+# ret = 1
+# info.append(ret)
+# print(info)
